@@ -10,7 +10,9 @@ import 'package:myfirstproject/views/login/Login.dart';
 import 'package:myfirstproject/views/login/components/roundedbutton.dart';
 import 'package:myfirstproject/views/login/components/roundedinputfield.dart';
 import 'package:myfirstproject/views/login_screen.dart';
-
+import 'package:myfirstproject/views/signup/signup_screen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../login/components/body.dart';
 import 'ChairPage.dart';
 
@@ -31,6 +33,7 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   padding: EdgeInsets.all(10.0),
   primary: Colors.white,
   onPrimary: kPrimaryColor,
+
   //     color: Color.fromRGBO(0,160,227,1),
   //     textColor: Colors.white,
 );
@@ -89,7 +92,12 @@ class _addchairState extends State<addchair> {
         subtitle: 'Name:Patient3'),
   ];
   String idchair = '';
-
+  String pfirstname = '';
+  String plastname = '';
+  String ppass = '';
+  String page = '';
+  String pgender = '';
+  String dropdownValue = 'Male';
   @override
   Widget build(BuildContext context) {
     // style button important
@@ -170,7 +178,7 @@ class _addchairState extends State<addchair> {
                           ),
                           Expanded(
                             child: Container(
-                              height: 400,
+                              height: 100,
                               padding: EdgeInsets.only(
                                   left: 35, right: 35, bottom: 20),
                               child: Center(
@@ -242,6 +250,7 @@ class _addchairState extends State<addchair> {
                                     child: buildcard(
                                       item: items[index],
                                       delete: IconButton(
+                                        splashColor: kPrimaryLightColor,
                                         onPressed: () {
                                           setState(() {
                                             items.removeAt(index);
@@ -254,37 +263,10 @@ class _addchairState extends State<addchair> {
                                         ),
                                       ),
                                       edit: IconButton(
+                                        splashColor: kPrimary2,
                                         onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => SimpleDialog(
-                                              children: [
-                                                RoundedInputField(
-                                                  onchanged: ((value) {
-                                                    setState(() {
-                                                      idchair = value;
-                                                    });
-                                                  }),
-                                                  controller: null,
-                                                  hinttext: 'add chair id',
-                                                  icon: Icons.wheelchair_pickup,
-                                                  validateStatus: (value) {},
-                                                  type: TextInputType.text,
-                                                ),
-                                                roundedbutton(
-                                                    size: size,
-                                                    flatbuttonstyle:
-                                                        flatbuttonstyle,
-                                                    text: 'Update',
-                                                    textcolor: Colors.white,
-                                                    press: () {
-                                                      setState(() {
-                                                        //  items[index].title = idchair;
-                                                      });
-                                                    })
-                                              ],
-                                            ),
-                                          );
+                                          ShowDialogChair(
+                                              context, size, flatbuttonstyle);
                                         },
                                         icon: Icon(
                                           Icons.edit,
@@ -316,7 +298,10 @@ class _addchairState extends State<addchair> {
                                     height: 70,
                                     child: ElevatedButton(
                                       style: raisedButtonStyle,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        ShowDialogChair(
+                                            context, size, flatbuttonstyle);
+                                      },
                                       child: Text("Add Wheelchair +",
                                           style: TextStyle(fontSize: 20)),
                                     ),
@@ -356,6 +341,199 @@ class _addchairState extends State<addchair> {
     );
   }
 
+  Future<dynamic> ShowDialogChair(
+      BuildContext context, Size size, ButtonStyle flatbuttonstyle) {
+    return showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Center(
+                    child: Text(
+                  'Fill in patient\'s data',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor,
+                  ),
+                )),
+                SizedBox(
+                  height: 20,
+                ),
+                RoundedInputField(
+                  onchanged: ((value) {
+                    setState(() {
+                      idchair = value;
+                    });
+                  }),
+                  controller: null,
+                  hinttext: 'chair id',
+                  icon: Icons.wheelchair_pickup,
+                  validateStatus: (value) {},
+                  type: TextInputType.text,
+                ),
+                RoundedInputField(
+                  onchanged: ((value) {
+                    setState(() {
+                      ppass = value;
+                    });
+                  }),
+                  controller: null,
+                  hinttext: 'Password',
+                  icon: Icons.lock,
+                  validateStatus: (value) {},
+                  type: TextInputType.text,
+                ),
+                RoundedInputField(
+                  onchanged: ((value) {
+                    setState(() {
+                      pfirstname = value;
+                    });
+                  }),
+                  controller: null,
+                  hinttext: 'First name',
+                  icon: Icons.person,
+                  validateStatus: (value) {},
+                  type: TextInputType.text,
+                ),
+                RoundedInputField(
+                  onchanged: ((value) {
+                    setState(() {
+                      plastname = value;
+                    });
+                  }),
+                  controller: null,
+                  hinttext: 'Last name',
+                  icon: Icons.person,
+                  validateStatus: (value) {},
+                  type: TextInputType.text,
+                ),
+                RoundedInputField(
+                  onchanged: ((value) {
+                    setState(() {
+                      page = value;
+                    });
+                  }),
+                  controller: null,
+                  hinttext: ' Age ',
+                  icon: Icons.app_registration_sharp,
+                  validateStatus: (value) {},
+                  type: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(color: Colors.white, width: 1),
+                      //<-- SEE HERE
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide(color: Colors.white, width: 1),
+                      //<-- SEE HERE
+                    ),
+                    filled: true,
+                    fillColor: kPrimaryLightColor,
+                  ),
+                  dropdownColor: kPrimaryLightColor,
+                  value: dropdownValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      pgender = newValue;
+                    });
+                  },
+                  items: <String>['Male', 'Female']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                roundedbutton(
+                    size: size,
+                    flatbuttonstyle: flatbuttonstyle,
+                    text: 'Save',
+                    textcolor: Colors.white,
+                    press: () {
+                      _save();
+                      print(
+                        '${pfirstname},+${plastname},+${pgender}+&${page}+,${idchair}+,${ppass}',
+                      );
+                      setState(() {
+                        //  items[index].title = idchair;
+                      });
+                    })
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _save() async {
+    /* UNCOMMENT WHEN SERVER ONLINE */
+    Map<String, dynamic> body = {
+      "chair_id": idchair,
+      "password": ppass,
+      "first_name": pfirstname,
+      "last_name": plastname,
+      "age": page,
+      "gender": pgender,
+    };
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+
+    var url =
+        Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/patient/info");
+
+    var response = await http.post(url,
+        headers: {
+          'content-Type': 'application/json',
+        },
+        body: jsonBody,
+        encoding: encoding);
+
+    var data = json.decode(response.body);
+    print(data);
+    if (data["message"] == "Success") {
+      print("addchair succeeded");
+    }
+    /* UNCOMMENT WHEN SERVER ONLINE */
+  }
+
+  void _getchairs() {
+    /* UNCOMMENT WHEN SERVER ONLINE */
+    // var url2 = Uri.parse("https://cba7-196-221-98-202.eu.ngrok.io/patient/me");
+    // var response = await http.get(
+    //   url2,
+    //   headers: {
+    //     'content-Type': 'application/json',
+    //     "Authorization": "Bearer ${token}"
+    //   },
+    // );
+
+    // if (response.statusCode == 200) {
+    //   var data2 = json.decode(response.body);
+    //   print(data2);
+    //
+    // }
+    /* UNCOMMENT WHEN SERVER ONLINE */
+  }
   Widget buildcard({
     required CardItem item,
     required IconButton delete,

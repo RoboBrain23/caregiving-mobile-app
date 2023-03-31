@@ -28,12 +28,12 @@ class Body extends StatefulWidget {
 
 /* For HoME Page */
 bool check = false;
-var globalusername = 'Zahraa';
+var globalusername = 'Ashraf';
 var globalage = '23';
-var globalgender = 'Female';
-var Username = 'SUCCESS';
-var Age = 'FUCK';
-var Gender = 'YEAH';
+var globalgender = 'Male';
+var Username = 'Hady';
+var Age = '22';
+var Gender = 'male';
 var Heart;
 /* For HoME Page */
 
@@ -167,63 +167,62 @@ class _BodyState extends State<Body> {
   }
 
   void _login() async {
-    globalusername = Username;
-    globalage = Age;
-    globalgender = Gender;
+    // globalusername = Username;
+    // globalage = Age;
+    // globalgender = Gender;
 
     /* UNCOMMENT WHEN SERVER ONLINE */
-    // Map<String, dynamic> body = {
-    //   "email": email,
-    //   "password": password,
-    // };
-    // String jsonBody = json.encode(body);
-    // final encoding = Encoding.getByName('utf-8');
-    // if (email == "" || password == "") {
-    //   print('Fields have not to be empty');
-    // } else {
-    //   var url =
-    //       Uri.parse("https://cba7-196-221-98-202.eu.ngrok.io/patient/login");
+    Map<String, dynamic> body = {
+      "email": email,
+      "password": password,
+    };
+    String jsonBody = json.encode(body);
+    final encoding = Encoding.getByName('utf-8');
+    if (email == "" || password == "") {
+      print('Fields have not to be empty');
+    } else {
+      var url =
+          Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/caregiver/login");
 
-    // var response = await http.post(url,
-    //     headers: {
-    //       'content-Type': 'application/json',
-    //     },
-    //     body: jsonBody,
-    //     encoding: encoding);
+      var response = await http.post(url,
+          headers: {
+            'content-Type': 'application/json',
+          },
+          body: jsonBody,
+          encoding: encoding);
 
-    // var data = json.decode(response.body);
-    // print(data);
-    // if (data["message"] == "Success") {
-    //   token = data["access_token"];
-    //   print(token);
-    //   print("Login succeeded");
-    // }
-    /* UNCOMMENT WHEN SERVER ONLINE */
-    // }
+      var data = json.decode(response.body);
+      print(data);
+      if (data["message"] == "Success") {
+        token = data["access_token"];
+        print(token);
+        print("Login succeeded");
+      }
+      /* UNCOMMENT WHEN SERVER ONLINE */
+    }
 
-    // var url2 = Uri.parse("https://cba7-196-221-98-202.eu.ngrok.io/patient/me");
+    var url2 =
+        Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/patient/info/55");
+    var response = await http.get(
+      url2,
+      headers: {
+        'content-Type': 'application/json',
+        "Authorization": "Bearer ${token}"
+      },
+    );
 
-    /* UNCOMMENT WHEN SERVER ONLINE */
-    // var response = await http.get(
-    //   url2,
-    //   headers: {
-    //     'content-Type': 'application/json',
-    //     "Authorization": "Bearer ${token}"
-    //   },
-    // );
-
-    // if (response.statusCode == 200) {
-    //   var data2 = json.decode(response.body);
-    //   print(data2);
-    //   Username = data2["username"].toString();
-    //   Gender = data2["gender"].toString();
-    //   Age = data2["age"].toString();
-    //   globalusername = Username;
-    //   globalage = Age;
-    //   globalgender = Gender;
-    //   print('Username=$Username');
-    //   print('global username=$globalusername');
-    // }
+    if (response.statusCode == 200) {
+      var data2 = json.decode(response.body);
+      print(data2);
+      Username = data2["first_name"].toString();
+      Gender = data2["gender"].toString();
+      Age = data2["age"].toString();
+      globalusername = Username;
+      globalage = Age;
+      globalgender = Gender;
+      print('Username=$Username');
+      print('global username=$globalusername');
+    }
     /* UNCOMMENT WHEN SERVER ONLINE */
   }
 

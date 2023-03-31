@@ -41,7 +41,7 @@ var tempint = 0.0;
 var heart2;
 var temp2;
 Future sensorupdate(BuildContext cont) async {
-  var url = Uri.parse("https://cba7-196-221-98-202.eu.ngrok.io/chair/data");
+  var url = Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/chair/data/55");
   var response = await http.get(
     url,
     headers: {
@@ -50,20 +50,20 @@ Future sensorupdate(BuildContext cont) async {
     },
   );
   /*remove this comments*/
-  //var data = json.decode(response.body);
-  //print(data);
-  // heartint = data["heart_rate"];
-  //tempint = data["body_temperature"];
-  //heart2 = data["heart_rate"].toString();
-  //temp2 = data["body_temperature"].toString();
-  //print(heart2);
-  //print(temp2);
+  var data = json.decode(response.body);
+  print(data);
+  heartint = data["pulse_rate"];
+  tempint = data["temperature"];
+  heart2 = data["pulse_rate"].toString();
+  temp2 = data["temperature"].toString();
+  print(heart2);
+  print(temp2);
   /*remove this comments*/
 
-  heart2 = '100';
-  temp2 = '40';
-  heartint = 100;
-  tempint = 40;
+  // heart2 = '100';
+  // temp2 = '40';
+  // heartint = 100;
+  // tempint = 40;
   if (heartint > 90 || heartint < 50) {
     NotificationService().showNotification(
         title: 'Heart Emergency',

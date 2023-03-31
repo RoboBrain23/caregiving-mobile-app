@@ -25,72 +25,63 @@ var token = "";
 var formkey1 = GlobalKey<FormState>();
 var email = "";
 var password = "";
-var fullname = "";
+var first_name = "";
 var username = "";
 var id = "";
 var phone = "";
-var address = "";
+var last_name = "";
 var age = "";
 var gender = "male";
 /* Variables */
 Future SignUp(BuildContext cont) async {
   /**removecomment when online */
-  // Map<String, dynamic> body = {
-  //   "id": id,
-  //   "email": email,
-  //   "password": password,
-  //   "patient_full_name": fullname,
-  //   "username": username,
-  //   "phone_number": phone,
-  //   "address": address,
-  //   "age": age,
-  //   "gender": gender,
-  // };
-  // String jsonBody = json.encode(body);
-  // final encoding = Encoding.getByName('utf-8');
-  // if (email == "" ||
-  //     password == "" ||
-  //     id == "" ||
-  //     fullname == "" ||
-  //     username == "" ||
-  //     phone == "" ||
-  //     address == "" ||
-  //     age == "") {
-  //   print('Fields have not to be empty');
-  // } else {
-  //   var url =
-  //       Uri.parse("https://cba7-196-221-98-202.eu.ngrok.io/patient/signup");
-  //   var response = await http.post(url,
-  //       headers: {'content-Type': 'application/json'},
-  //       body: jsonBody,
-  //       encoding: encoding);
-  //   var result = response.body;
-  //   print(result);
-  /**removecomment when online */
-  Navigator.push(
-    cont,
-    MaterialPageRoute(
-      builder: (context) => addchair(),
-    ),
-  );
-  /**removecomment when online */
-  // print('Registration successful');
-  // print(result);
+  Map<String, dynamic> body = {
+    "id": id,
+    "email": email,
+    "password": password,
+    "first_name": first_name,
+    "last_name": last_name,
+    "username": username,
+    // "phone_number": phone,
+    "age": age,
+  };
+  String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+  if (email == "" ||
+      password == "" ||
+      first_name == "" ||
+      username == "" ||
+      phone == "" ||
+      last_name == "" ||
+      age == "") {
+    print('Fields have not to be empty');
+  } else {
+    var url =
+        Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/caregiver/signup");
+    var response = await http.post(url,
+        headers: {'content-Type': 'application/json'},
+        body: jsonBody,
+        encoding: encoding);
+    var result = response.body;
+    print(result);
 
-  // var data = json.decode(response.body);
-  // if (data["message"] == "Success") {
-  //   token = data["access_token"];
-  //   print("Registeration succeeded");
-  //   Navigator.pop(
-  //     cont,
-  // MaterialPageRoute(
-  //   builder: (context) => login(),
-  // ),
-  // );
-  // } else {
-  //   print("Registeration Failed");
-  // }
-  // }
+    print('Registration successful');
+    print(result);
+
+    var data = json.decode(response.body);
+    if (data["message"] == "Success") {
+      token = data["access_token"];
+      print("Registeration succeeded");
+      Navigator.push(
+        cont,
+        MaterialPageRoute(
+          builder: (context) => addchair(),
+        ),
+      );
+    } else {
+      print("Registeration Failed");
+    }
+  }
   /**removecomment when online */
 }
 
@@ -101,8 +92,8 @@ class _signupState extends State<signup> {
   var passwordController = TextEditingController();
   var idController = TextEditingController();
   var usernameController = TextEditingController();
-  var fullnameController = TextEditingController();
-  var addressController = TextEditingController();
+  var first_nameController = TextEditingController();
+  var last_nameController = TextEditingController();
   var ageController = TextEditingController();
   var phoneController = TextEditingController();
   bool passwordVisible = true;
@@ -181,12 +172,12 @@ class _signupState extends State<signup> {
                     passwordVisible: true,
                   ),
                   RoundedInputField(
-                    controller: fullnameController,
+                    controller: first_nameController,
                     type: TextInputType.name,
-                    hinttext: "Full Name",
+                    hinttext: "First name",
                     icon: Icons.face_sharp,
                     onchanged: ((String value) {
-                      fullname = value;
+                      first_name = value;
                     }),
                     validateStatus: (value) {
                       if (value!.isEmpty) {
@@ -211,12 +202,12 @@ class _signupState extends State<signup> {
                     },
                   ),
                   RoundedInputField(
-                    controller: addressController,
-                    type: TextInputType.streetAddress,
-                    hinttext: "City",
+                    controller: last_nameController,
+                    type: TextInputType.text,
+                    hinttext: "Last name",
                     icon: Icons.location_history_rounded,
                     onchanged: ((String value) {
-                      address = value;
+                      last_name = value;
                     }),
                     validateStatus: (value) {
                       if (value!.isEmpty) {
@@ -262,7 +253,7 @@ class _signupState extends State<signup> {
                     textcolor: Colors.white,
                     press: () {
                       if (formkey1.currentState!.validate()) {
-                        print('successful');
+                        // print('successful');
                         SignUp(context);
                       }
                     },
