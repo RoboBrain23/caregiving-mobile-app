@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myfirstproject/constants.dart';
+import 'package:myfirstproject/views/login/Login.dart';
+import 'package:myfirstproject/views/register.dart';
 import 'package:myfirstproject/views/widgets/sensorReading.dart';
 import 'HomePage.dart';
 import 'package:http/http.dart' as http;
@@ -7,52 +10,31 @@ import 'Welcome.dart';
 import 'notif.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:myfirstproject/views/global.dart';
 
 class home extends StatefulWidget {
-  const home({super.key});
+//  const home({super.key});
+  final String username;
+  final String age;
+  final String gender;
+
+  home({
+    required this.username,
+    required this.age,
+    required this.gender,
+  });
 
   @override
   State<home> createState() => _homeState();
 }
 
-var username = "";
-var age = "";
-Future reload(BuildContext cont) async {
-  var url = Uri.parse("https://4f83-102-184-173-88.eu.ngrok.io/chair/data/1");
-  var response = await http.get(
-    url,
-    headers: {'content-Type': 'application/json'},
-  );
-
-  // var data = json.decode(response.body);
-  username = "RoboBrain";
-  //   username = data["heart_rate"].toString();
-  //   if (data["heart_rate"] < 120) {
-  //     print('patient died');
-  //   }
-  //   print(data["heart_rate"]);
-}
-
-Future update(BuildContext cont) async {
-  var url = Uri.parse("https://4f83-102-184-173-88.eu.ngrok.io/chair/data/1");
-  var response = await http.get(
-    url,
-    headers: {'content-Type': 'application/json'},
-  );
-
-  var data = json.decode(response.body);
-  // test = "Hello";
-  if (data["heart_rate"] < 120) {
-    print('patient died');
-  }
-  print(data["heart_rate"]);
-}
+var text_color = Token.text;
 
 class _homeState extends State<home> {
   final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    reload(context);
     assert(debugCheckHasMaterial(context));
     return Container(
       child: Column(
@@ -70,10 +52,10 @@ class _homeState extends State<home> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Welcome(),
+                            builder: (context) => login(),
                           ),
                         );
                       },
@@ -88,6 +70,7 @@ class _homeState extends State<home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Expanded(
                                 child: Column(
@@ -95,36 +78,16 @@ class _homeState extends State<home> {
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           //hello message
-                                          'Hi,',
+                                          'Hi, ${widget.username} !',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Text(
-                                          //hello message
-                                          username,
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Text(
-                                          //hello message
-                                          '!',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
@@ -133,14 +96,23 @@ class _homeState extends State<home> {
                                     SizedBox(
                                       height: 8,
                                     ),
-                                    Text(
-                                      'age,gender',
-                                      style: TextStyle(
-                                        color: Colors.blue[50],
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w200,
-                                        fontFamily: 'Kanit',
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${widget.age} , ${widget.gender}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            // fontWeight: FontWeight.,
+                                            fontFamily: 'Kanit',
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -272,42 +244,43 @@ class _homeState extends State<home> {
                           children: [
                             sensorReading(
                               index: '0',
-                              Color1: Colors.red[100],
+                              Color1: kPrimaryLightColor,
                               Color2: Colors.white,
-                              textcolor: Colors.grey[600],
+                              textcolor: //Colors.grey[600],
+                                  text_color,
                               pic:
-                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/heartbeat.gif',
+                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/heart-rate.png',
                               sensorName: 'Heart Rate',
                               state: '70-80 Safe',
                             ),
                             sensorReading(
                               index: '1',
-                              Color1: Colors.purple[100],
+                              Color1: kPrimaryLightColor,
                               Color2: Colors.white,
-                              textcolor: Colors.grey[600],
+                              textcolor: text_color, // Colors.grey[600],
                               pic:
-                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/thermometer.gif',
+                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/temperature.png',
                               sensorName: 'Temprature',
                               state: '70-80  Safe',
                             ),
                             sensorReading(
                               index: '2',
-                              Color1: Colors.blue[100],
+                              Color1: kPrimaryLightColor,
                               Color2: Colors.white,
                               textcolor: Colors.grey[600],
                               pic:
-                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/pipette.gif',
-                              sensorName: 'Sugar Blood Level',
+                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/glucose-meter.png',
+                              sensorName: ' BloodSugar-Level',
                               state: '180-190  Dangerous',
                             ),
                             sensorReading(
                               index: '3',
-                              Color1: Colors.orange[100],
+                              Color1: kPrimaryLightColor,
                               Color2: Colors.white,
                               textcolor: Colors.grey[600],
                               pic:
-                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/blood-transfusion.gif',
-                              sensorName: 'Blood Pressure',
+                                  'https://raw.githubusercontent.com/Zahraa5Ashraf/flutter/main/oxygen-mask.png',
+                              sensorName: 'Oxygen-Level',
                               state: '70-80  Safe',
                             ),
                           ],

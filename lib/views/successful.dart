@@ -3,8 +3,8 @@ import 'package:myfirstproject/views/HomePage.dart';
 import 'package:myfirstproject/views/login/Login.dart';
 import 'package:myfirstproject/views/login_screen.dart';
 
-class Welcome extends StatelessWidget {
-  const Welcome({super.key});
+class successful extends StatelessWidget {
+  const successful({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +21,13 @@ class Welcome extends StatelessWidget {
                         image: AssetImage(
                             "assets/images/background-gradient.png"))),
               )),
-          //WELCOME
-          Container(
-            padding: EdgeInsets.all(100),
-            alignment: Alignment.topCenter,
-            child: Container(
-                width: 300,
-                height: 200,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/welcome.png"),
-                        fit: BoxFit.contain))),
-          ),
-
-          //image
           Align(
-              alignment: Alignment.bottomCenter,
-              heightFactor: 4,
-              child: Container(
-                  width: 512,
-                  height: 560,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/doctor.png"),
-                          fit: BoxFit.contain)))),
+            alignment: Alignment.center,
+            child: Text(
+              'Regestration Successful',
+              style: TextStyle(fontSize: 30, color: Colors.grey[600]),
+            ),
+          ),
           //BUTTON
           Align(
             alignment: Alignment.bottomCenter,
@@ -75,7 +58,7 @@ class Welcome extends StatelessWidget {
                         ),
                     child: Container(
                       padding: const EdgeInsets.all(15),
-                      child: const Text('START', textAlign: TextAlign.center),
+                      child: const Text('Login', textAlign: TextAlign.center),
                     ),
                   ),
                 )),
