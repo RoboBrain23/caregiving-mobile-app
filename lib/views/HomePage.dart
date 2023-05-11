@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:myfirstproject/views/global.dart';
 import 'package:myfirstproject/views/login/Login.dart';
 import 'home.dart';
+import 'profile screen/proflle_screen.dart';
 
 class HomePage extends StatefulWidget {
   // const HomePage({super.key});
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       username: globalusername,
     ),
     map(),
-    notif(),
+    profile(),
   ];
 
   @override
@@ -99,12 +100,8 @@ class _HomePageState extends State<HomePage> {
                       alignment: AlignmentDirectional.bottomEnd,
                       children: [
                         Icon(
-                          CupertinoIcons.ellipses_bubble_fill,
+                          CupertinoIcons.person_fill,
                         ),
-                        CircleAvatar(
-                          radius: 6,
-                          backgroundColor: Colors.red,
-                        )
                       ]),
                   label: ''),
             ]),

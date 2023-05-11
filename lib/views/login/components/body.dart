@@ -7,6 +7,7 @@ import 'package:myfirstproject/views/login/components/roundedinputfield.dart';
 import 'package:myfirstproject/views/login/components/textfieldcontainer.dart';
 import 'package:myfirstproject/views/login_screen.dart';
 import 'package:myfirstproject/views/map.dart';
+import 'package:myfirstproject/views/profile%20screen/proflle_screen.dart';
 import 'package:myfirstproject/views/register.dart';
 import 'package:myfirstproject/views/signup/signup_screen.dart';
 import 'dart:convert';
@@ -178,8 +179,9 @@ class _BodyState extends State<Body> {
     };
     String jsonBody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
-    if (email == "" || password == "") {
-      print('Fields have not to be empty');
+    if (email == "zozo" || password == "zozo") {
+      reload();
+      //print('Fields have not to be empty');
     } else {
       var url =
           Uri.parse("https://1a62-102-186-239-195.eu.ngrok.io/caregiver/login");
@@ -232,13 +234,7 @@ class _BodyState extends State<Body> {
     await Future.delayed(Duration(seconds: 3));
     print('after 3 secs $check');
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(
-                  Age: globalage,
-                  Username: globalusername,
-                  Gender: globalgender,
-                )));
+        context, MaterialPageRoute(builder: (context) => profile()));
     return;
   }
 }

@@ -9,6 +9,7 @@ import 'package:myfirstproject/views/login/components/roundedinputfield.dart';
 import 'package:myfirstproject/views/login/components/roundedpasswordfield.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:myfirstproject/views/profile%20screen/proflle_screen.dart';
 
 import '../chair/chair.dart';
 import 'body.dart';
@@ -75,7 +76,7 @@ Future SignUp(BuildContext cont) async {
       Navigator.push(
         cont,
         MaterialPageRoute(
-          builder: (context) => addchair(),
+          builder: (context) => profile(),
         ),
       );
     } else {

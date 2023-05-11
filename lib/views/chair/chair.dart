@@ -176,109 +176,107 @@ class _addchairState extends State<addchair> {
                           SizedBox(
                             height: 30,
                           ),
-                          Expanded(
-                            child: Container(
-                              height: 100,
-                              padding: EdgeInsets.only(
-                                  left: 35, right: 35, bottom: 20),
-                              child: Center(
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  // physics: PageScrollPhysics(),
-                                  itemCount: items.length,
-                                  itemBuilder: (context, int index) =>
-                                      /**ICONS EDIT AND DELETE */
-                                      // Row(
-                                      //   children: [
-                                      //     Expanded(
-                                      //       child: IconButton(
-                                      //         onPressed: () {
-                                      //           showDialog(
-                                      //             context: context,
-                                      //             builder: (context) => SimpleDialog(
-                                      //               children: [
-                                      //                 RoundedInputField(
-                                      //                   onchanged: ((value) {
-                                      //                     setState(() {
-                                      //                       idchair = value;
-                                      //                     });
-                                      //                   }),
-                                      //                   controller: null,
-                                      //                   hinttext: 'add chair id',
-                                      //                   icon: Icons.wheelchair_pickup,
-                                      //                   validateStatus: (value) {},
-                                      //                   type: TextInputType.text,
-                                      //                 ),
-                                      //                 roundedbutton(
-                                      //                     size: size,
-                                      //                     flatbuttonstyle: flatbuttonstyle,
-                                      //                     text: 'Update',
-                                      //                     textcolor: Colors.white,
-                                      //                     press: () {
-                                      //                       setState(() {
-                                      //                         data[index] = idchair;
-                                      //                       });
-                                      //                     })
-                                      //               ],
-                                      //             ),
-                                      //           );
-                                      //         },
-                                      //         icon: Icon(
-                                      //           Icons.edit,
-                                      //           color: _color,
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //     Expanded(
-                                      //       child: IconButton(
-                                      //         onPressed: () {
-                                      //           setState(() {
-                                      //             data.removeAt(index);
-                                      //           });
-                                      //         },
-                                      //         icon: Icon(
-                                      //           Icons.delete,
-                                      //           color: _color2,
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
-                                      /**ICONS EDIT AND DELETE */
-                                      Center(
-                                    child: buildcard(
-                                      item: items[index],
-                                      delete: IconButton(
-                                        splashColor: kPrimaryLightColor,
-                                        onPressed: () {
-                                          setState(() {
-                                            items.removeAt(index);
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.remove_rounded,
-                                          size: 35,
-                                          color: _color2,
-                                        ),
+                          Container(
+                            height: 400,
+                            padding: EdgeInsets.only(
+                                left: 35, right: 35, bottom: 20),
+                            child: Center(
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                // physics: PageScrollPhysics(),
+                                itemCount: items.length,
+                                itemBuilder: (context, int index) =>
+                                    /**ICONS EDIT AND DELETE */
+                                    // Row(
+                                    //   children: [
+                                    //     Expanded(
+                                    //       child: IconButton(
+                                    //         onPressed: () {
+                                    //           showDialog(
+                                    //             context: context,
+                                    //             builder: (context) => SimpleDialog(
+                                    //               children: [
+                                    //                 RoundedInputField(
+                                    //                   onchanged: ((value) {
+                                    //                     setState(() {
+                                    //                       idchair = value;
+                                    //                     });
+                                    //                   }),
+                                    //                   controller: null,
+                                    //                   hinttext: 'add chair id',
+                                    //                   icon: Icons.wheelchair_pickup,
+                                    //                   validateStatus: (value) {},
+                                    //                   type: TextInputType.text,
+                                    //                 ),
+                                    //                 roundedbutton(
+                                    //                     size: size,
+                                    //                     flatbuttonstyle: flatbuttonstyle,
+                                    //                     text: 'Update',
+                                    //                     textcolor: Colors.white,
+                                    //                     press: () {
+                                    //                       setState(() {
+                                    //                         data[index] = idchair;
+                                    //                       });
+                                    //                     })
+                                    //               ],
+                                    //             ),
+                                    //           );
+                                    //         },
+                                    //         icon: Icon(
+                                    //           Icons.edit,
+                                    //           color: _color,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //     Expanded(
+                                    //       child: IconButton(
+                                    //         onPressed: () {
+                                    //           setState(() {
+                                    //             data.removeAt(index);
+                                    //           });
+                                    //         },
+                                    //         icon: Icon(
+                                    //           Icons.delete,
+                                    //           color: _color2,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    /**ICONS EDIT AND DELETE */
+                                    Center(
+                                  child: buildcard(
+                                    item: items[index],
+                                    delete: IconButton(
+                                      splashColor: kPrimaryLightColor,
+                                      onPressed: () {
+                                        setState(() {
+                                          items.removeAt(index);
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.remove_rounded,
+                                        size: 35,
+                                        color: _color2,
                                       ),
-                                      edit: IconButton(
-                                        splashColor: kPrimary2,
-                                        onPressed: () {
-                                          ShowDialogChair(
-                                              context, size, flatbuttonstyle);
-                                        },
-                                        icon: Icon(
-                                          Icons.edit,
-                                          size: 25,
-                                          color: _color,
-                                        ),
+                                    ),
+                                    edit: IconButton(
+                                      splashColor: kPrimary2,
+                                      onPressed: () {
+                                        ShowDialogChair(
+                                            context, size, flatbuttonstyle);
+                                      },
+                                      icon: Icon(
+                                        Icons.edit,
+                                        size: 25,
+                                        color: _color,
                                       ),
                                     ),
                                   ),
-                                  separatorBuilder: (context, _) => SizedBox(
-                                    width: 10,
-                                  ),
+                                ),
+                                separatorBuilder: (context, _) => SizedBox(
+                                  width: 10,
                                 ),
                               ),
                             ),
@@ -306,24 +304,22 @@ class _addchairState extends State<addchair> {
                                           style: TextStyle(fontSize: 20)),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                    height: 70,
-                                    width: 325,
-                                    margin: EdgeInsets.only(bottom: 50),
-                                    child: ElevatedButton(
-                                      style: raisedButtonStyle2,
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                          ..pop()
-                                          ..pop();
-                                      },
-                                      child: Text("Submit",
-                                          style: TextStyle(fontSize: 20)),
-                                    ),
-                                  ),
+
+                                  // Container(
+                                  //   height: 70,
+                                  //   width: 325,
+                                  //   margin: EdgeInsets.only(bottom: 50),
+                                  //   child: ElevatedButton(
+                                  //     style: raisedButtonStyle2,
+                                  //     onPressed: () {
+                                  //       Navigator.of(context)
+                                  //         ..pop()
+                                  //         ..pop();
+                                  //     },
+                                  //     child: Text("Submit",
+                                  //         style: TextStyle(fontSize: 20)),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -542,7 +538,7 @@ class _addchairState extends State<addchair> {
       Center(
         child: Container(
           width: 300,
-          //  height: 400,
+          height: 300,
           color: Colors.white,
           child: Center(
             child: Column(
